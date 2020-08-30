@@ -1,5 +1,11 @@
-FROM webdevops/php-nginx:7.4
+FROM webdevops/php:7.4
 
+ENV WEB_DOCUMENT_ROOT=/app \
+    WEB_DOCUMENT_INDEX=index.php \
+    WEB_ALIAS_DOMAIN=*.vm \
+    WEB_PHP_TIMEOUT=600 \
+    WEB_PHP_SOCKET=""
+ENV WEB_PHP_SOCKET=127.0.0.1:9000
 ARG APP_ENV=production
 ENV APP_ENV "$APP_ENV"
 ENV fpm.pool.clear_env no
@@ -9,8 +15,11 @@ ENV fpm.pool.pm.process_idle_timeout=10s
 ENV fpm.pool.pm.max_requests=500
 ENV COMPOSER_NO_INTERACTION 1
 
+COPY conf/docker/ /opt/docker/
+
 # Install apps and libs
 RUN apt-get update && apt-get -y install \
+    nginx \
     apt-utils \
     procps \
     mcedit \
@@ -21,14 +30,9 @@ RUN apt-get update && apt-get -y install \
     libpcre3-dev \
     gzip \
     git \
-    software-properties-common
-
-# Update and configure Nginx
-COPY conf/nginx/10-location-root.conf /opt/docker/etc/nginx/vhost.common.d/10-location-root.conf
-#COPY conf/nginx/nginx.list /etc/apt/sources.list.d/nginx.list
-#RUN wget -qO - https://nginx.org/keys/nginx_signing.key | apt-key add - \
-#    && apt-get update && apt-get remove nginx-common -y \
-#    && echo '' | apt-get install nginx
+    software-properties-common \
+&& docker-run-bootstrap \
+&& docker-image-cleanup
 
 # Configure `edit` dommand to use mcedit with `modarin256` skin
 COPY conf/mcedit/mc.keymap /etc/mc/mc.keymap
@@ -53,3 +57,5 @@ COPY conf/phalcon/phalcon_4.0.5.so /usr/local/lib/php/extensions/no-debug-non-zt
 # Enable PSR, Phalcon and OPcache
 RUN docker-php-ext-enable psr phalcon \
     && docker-php-ext-configure opcache --enable-opcache
+
+EXPOSE 80 443

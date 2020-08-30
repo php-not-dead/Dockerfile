@@ -2,6 +2,6 @@
 
 **Includes:**
 - PHP 7.4.*
-- Phalcon 4.0.5
+- Phalcon 4.0.6
 - Nginx
 - Xdebug

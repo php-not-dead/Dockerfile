@@ -16,10 +16,10 @@ ENV fpm.pool.pm.max_requests=500
 ENV COMPOSER_NO_INTERACTION 1
 
 COPY conf/docker/ /opt/docker/
-COPY conf/sources/nginx.list /etc/apt/sources.list.d/nginx.list
+#COPY conf/sources/nginx.list /etc/apt/sources.list.d/nginx.list
 
-RUN wget http://nginx.org/keys/nginx_signing.key \
-    && apt-key add nginx_signing.key
+#RUN wget http://nginx.org/keys/nginx_signing.key \
+#    && apt-key add nginx_signing.key
 
 # Install apps and libs
 RUN apt-get update && apt-get -y install \

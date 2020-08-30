@@ -1,4 +1,4 @@
-### Dockerfile for Phalcon 4.0.5
+### Dockerfile for Phalcon 4.0.6
 
 **Includes:**
 - PHP 7.4.*

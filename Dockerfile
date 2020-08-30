@@ -16,6 +16,10 @@ ENV fpm.pool.pm.max_requests=500
 ENV COMPOSER_NO_INTERACTION 1
 
 COPY conf/docker/ /opt/docker/
+COPY conf/sources/nginx.list /etc/apt/sources.list.d/nginx.list
+
+RUN wget http://nginx.org/keys/nginx_signing.key \
+    && apt-key add nginx_signing.key
 
 # Install apps and libs
 RUN apt-get update && apt-get -y install \
@@ -36,7 +40,7 @@ RUN apt-get update && apt-get -y install \
 
 # Configure `edit` dommand to use mcedit with `modarin256` skin
 COPY conf/mcedit/mc.keymap /etc/mc/mc.keymap
-COPY conf/mcedit/edit /usr/bin/edit
+COPY conf/mcedit/edit.sh /usr/bin/edit
 RUN chmod +x /usr/bin/edit
 
 # Install composer
@@ -52,7 +56,7 @@ RUN pecl install xdebug psr
 COPY conf/xdebug/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 # Install Phalcon
-COPY conf/phalcon/phalcon_4.0.5.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/phalcon.so
+COPY conf/extensions/phalcon.so /usr/local/lib/php/extensions/no-debug-non-zts-20190902/phalcon.so
 
 # Enable PSR, Phalcon and OPcache
 RUN docker-php-ext-enable psr phalcon \

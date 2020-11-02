@@ -1,4 +1,4 @@
-# PHP 7.4 and Phalcon 4.0.6 Dockerfile
+# PHP 7.4 and Phalcon 4.1.0 Dockerfile
 
 Dockerfile is originally build from [webdevops/php:7.4](https://github.com/webdevops/Dockerfile/tree/master/docker/php-official/7.4) with partial nginx configuration from [webdevops/php-nginx:7.4](https://github.com/webdevops/Dockerfile/tree/master/docker/php-nginx/7.4).
 
@@ -14,7 +14,7 @@ Dockerfile is originally build from [webdevops/php:7.4](https://github.com/webde
 | Software | Version                                                          |
 | -------- | ---------------------------------------------------------------- |
 | PHP      | [7.4.*](https://www.php.net/releases/7_4_0.php)                  |
-| Phalcon  | [4.0.6](https://github.com/phalcon/cphalcon/releases/tag/v4.0.6) |
+| Phalcon  | [4.1.0](https://github.com/phalcon/cphalcon/releases/tag/v4.1.0) |
 | Nginx    | [latest stable](https://nginx.org/)                              |
 | Xdebug   | [latest stable](https://xdebug.org/download)                     |
 | Composer | [latest stable](https://getcomposer.org/download/)               |
@@ -31,14 +31,14 @@ Using `master` branch:
 ```
 context: https://github.com/php-not-dead/phalcon-dockerfile.git
 ```
-Full `docker-compose.yml` file example with `7.4-4.0.6` release tag:
+Full `docker-compose.yml` file example with `7.4-4.1.0` release tag:
 ```
 version: '3.7'
 services:
   phalcon:
     container_name: phalcon
     build:
-      context: https://github.com/php-not-dead/phalcon-dockerfile.git#7.4-4.0.6
+      context: https://github.com/php-not-dead/phalcon-dockerfile.git#7.4-4.1.0
       args:
       - APP_ENV=development
     image: phalcon
@@ -59,7 +59,7 @@ context: '.'
 
 Run directly from git repository:
 ```
-docker build https://github.com/php-not-dead/phalcon-dockerfile.git#7.4-4.0.6 -t phalcon
+docker build https://github.com/php-not-dead/phalcon-dockerfile.git#7.4-4.1.0 -t phalcon
 docker run -d -p 801:80 -v src:/app --name phalcon phalcon
 ```
 `git clone` or download repository and run:

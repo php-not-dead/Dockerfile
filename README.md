@@ -2,7 +2,7 @@
 
 Dockerfile is originally build from [webdevops/php:7.4](https://github.com/webdevops/Dockerfile/tree/master/docker/php-official/7.4) with partial nginx configuration from [webdevops/php-nginx:7.4](https://github.com/webdevops/Dockerfile/tree/master/docker/php-nginx/7.4).
 
-**Original Dockerfiles updates:**
+**Dockerfile includes:**
 - **Phalcon** extension preinstalled and does not need separate installation *(solves phalcon installation freeze issue using Docker Toolbox)*
 - Latest **nginx** version installed, `/index.php` routed to `/app/public/index.php`
 - **Composer** installed
